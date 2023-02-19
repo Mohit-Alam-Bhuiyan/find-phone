@@ -1,19 +1,40 @@
+document.getElementById('error-message').style.display = 'none';
 const searchPhone = () => {
    const searchField = document.getElementById('search-field');
    const searchText = searchField.value;
-   //console.log(searchText);
+   //clear data
    searchField.value = '';
-   const url = ` https://openapi.programming-hero.com/api/phones?search=${searchText}`;
+  document.getElementById('error-message').style.display = 'none';
+   if(searchText == ''){
+    //console.log('no result found');
+   }
 
-   //console.log(url);
-  fetch(url)
-  .then(res => res.json())
-  .then(data => displaySearchResult(data.data));
-}
+   else{
+    //load data
+   const url = ` https://openapi.programming-hero.com/api/phones?search=${searchText}`;
+   fetch(url)
+   .then(res => res.json())
+   .then(data => displaySearchResult(data.data))
+   .catch(error => displayError(error));
+ }
+   }
+    
+
+  const displayError = error => {
+    document.getElementById('error-message').style.display = 'block';
+  }
 
 
 const displaySearchResult = phones => {
    const searchResult = document.getElementById('search-result');
+   searchResult.textContent = '';
+   if(phones.length == 0){
+     console.log(error);
+   }
+  else{
+   // console.log(error);
+  }
+
    phones.forEach(phone => {
      //console.log(phone);
     const div = document.createElement('div');
@@ -64,14 +85,16 @@ const displayPhoneDetail = phone => {
     </p>
 
     <p>Sensor: ${phone.mainFeatures.sensors}</p>
-    <p>Others:
-    <br>1. Bluetooth: ${phone?.others?.Bluetooth}
-    <br>2. GPS: ${phone?.others?.GPS}
-    <br>3. NFC: ${phone?.others?.NFC}
-    <br>4. Radio: ${phone?.others?.Radio}
-    <br>5. USB: ${phone?.others?.USB}
-    <br>5. WLAN: ${phone?.others?.WLAN}
-    </p>
+    <div id="others">
+      <p>Others:
+      <br>1. Bluetooth: ${phone?.others?.Bluetooth}
+      <br>2. GPS: ${phone?.others?.GPS}
+      <br>3. NFC: ${phone?.others?.NFC}
+      <br>4. Radio: ${phone?.others?.Radio}
+      <br>5. USB: ${phone?.others?.USB}
+      <br>5. WLAN: ${phone?.others?.WLAN}
+      </p>
+    </div>
   </div>
   `;
 
