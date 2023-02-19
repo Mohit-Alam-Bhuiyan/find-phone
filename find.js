@@ -64,7 +64,14 @@ const displayPhoneDetail = phone => {
     </p>
 
     <p>Sensor: ${phone.mainFeatures.sensors}</p>
-    <p>Others: ${phone.others}</p>
+    <p>Others:
+    <br>1. Bluetooth: ${phone?.others?.Bluetooth}
+    <br>2. GPS: ${phone?.others?.GPS}
+    <br>3. NFC: ${phone?.others?.NFC}
+    <br>4. Radio: ${phone?.others?.Radio}
+    <br>5. USB: ${phone?.others?.USB}
+    <br>5. WLAN: ${phone?.others?.WLAN}
+    </p>
   </div>
   `;
 
