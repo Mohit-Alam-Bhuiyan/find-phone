@@ -1,9 +1,24 @@
+//for spinner
+const toggleSpinner = displayStyle =>{
+  document.getElementById('spinner').style.display = displayStyle;
+}  
+const toggleSearchResult = displayStyle =>{
+  document.getElementById('phone-details').style.display = displayStyle;
+}  
+
+//for error
 document.getElementById('error-message').style.display = 'none';
 const searchPhone = () => {
+
    const searchField = document.getElementById('search-field');
    const searchText = searchField.value;
+
+   //display spinner
+   toggleSpinner('block');
+   toggleSearchResult('none');
    //clear data
    searchField.value = '';
+
   document.getElementById('error-message').style.display = 'none';
    if(searchText == ''){
     //console.log('no result found');
@@ -24,7 +39,7 @@ const searchPhone = () => {
     document.getElementById('error-message').style.display = 'block';
   }
 
-
+//  error message show 
 const displaySearchResult = phones => {
    const searchResult = document.getElementById('search-result');
    searchResult.textContent = '';
@@ -34,8 +49,9 @@ const displaySearchResult = phones => {
   else{
    // console.log(error);
   }
-
-   phones.forEach(phone => {
+  
+  // main card
+   phones?.forEach(phone => {
      //console.log(phone);
     const div = document.createElement('div');
     div.classList.add('col');
@@ -54,7 +70,10 @@ const displaySearchResult = phones => {
       </div>
     `;
     searchResult.appendChild(div);
-   })
+   });
+   //for stop 
+   toggleSpinner('none');
+   toggleSearchResult('block');
 }
 
 
@@ -65,7 +84,7 @@ const loadPhoneDetail = slug => {
   .then(data => displayPhoneDetail(data.data));
 }
 
-
+//search result card with details 
 const displayPhoneDetail = phone => {
   console.log(phone);
   const phoneDetails = document.getElementById('phone-details');
@@ -85,7 +104,7 @@ const displayPhoneDetail = phone => {
     </p>
 
     <p>Sensor: ${phone.mainFeatures.sensors}</p>
-    <div id="others">
+
       <p>Others:
       <br>1. Bluetooth: ${phone?.others?.Bluetooth}
       <br>2. GPS: ${phone?.others?.GPS}
@@ -94,7 +113,7 @@ const displayPhoneDetail = phone => {
       <br>5. USB: ${phone?.others?.USB}
       <br>5. WLAN: ${phone?.others?.WLAN}
       </p>
-    </div>
+   
   </div>
   `;
 
